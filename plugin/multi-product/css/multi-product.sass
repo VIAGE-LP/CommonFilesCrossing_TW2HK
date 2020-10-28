@@ -1,0 +1,133 @@
+#productSelection
+    select
+        width: calc(100% - 60px - 40px - 20px - 40px - 10px)
+        height: 34px
+        padding: 6px 12px
+        font-size: 14px
+        line-height: 1.42857143
+        color: #555
+        background-color: #fff
+        background-image: none
+        border: 1px solid #ccc
+        border-radius: 4px
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+
+        margin: 0 10px
+
+    .category1Image
+        width: 30%
+
+        @media screen and (max-width: 640px)
+            width: 200px
+
+    .size-title
+        display: inline-block
+        width: 50px
+        margin-right: 10px
+        line-height: 50px
+        
+    .quantity-change
+        display: inline-block
+        padding: 6px 12px
+        margin-bottom: 0
+        font-size: 14px
+        font-weight: 400
+        line-height: 1.42857143
+        text-align: center
+        white-space: nowrap
+        vertical-align: middle
+        touch-action: manipulation
+        cursor: pointer
+        user-select: none
+        background-image: none
+        border: 1px solid transparent
+        border-radius: 4px
+
+        color: #333
+        background-color: #fff
+        border-color: #ccc
+
+#tr_selected_productInfo_list
+    padding-left: 40px
+
+.amount-info
+    display: none
+    position: fixed
+    right: 10px
+    top: 60px
+    left: auto
+    bottom: auto
+    padding: 0.5em 1em
+    font-weight: bold
+    color: #6091d3
+    background: #FFF
+    border: solid 3px #6091d3
+    border-radius: 10px
+
+    @media screen and (max-width: 640px)
+        top: 65px
+
+    .titlefont4
+        font-weight: bold
+        font-size: 18px
+        color: #0000E3
+
+    .selected-product_title
+        text-align: center
+        font-weight: bold
+        font-size: 16px
+        color: #000
+
+    .reset-selected-product-box
+        margin-top: 5px
+        text-align: right
+
+    .reset-selected-product-btn
+        display: inline-block
+        padding: 6px 12px
+        margin-bottom: 0
+        font-size: 14px
+        font-weight: 400
+        line-height: 1.42857143
+        text-align: center
+        white-space: nowrap
+        vertical-align: middle
+        -ms-touch-action: manipulation
+        touch-action: manipulation
+        cursor: pointer
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+        background-image: none
+        border: 1px solid transparent
+        border-radius: 4px
+        
+        color: #fff
+        background-color: #5bc0de
+        border-color: #46b8da
+        font-family: '微軟正黑體'
+
+    .size-title
+        display: inline-block
+        width: 80px
+
+.row
+    &:after, &:before
+        display: table
+        content: " "
+
+    &:after
+        clear: both
+
+    .col-md-6
+        width: 50%
+        float: left
+
+        @media screen and (max-width: 640px)
+            width: 100%
+        
+@media screen and (max-width: 640px)
+    #selectedProductInfo
+        display: none

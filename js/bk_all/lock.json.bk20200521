@@ -1,0 +1,59 @@
+{
+    "LockedProduct": {
+        "vghk_lockTest": {
+            "A_BK_S": {
+                "text": "缺貨"
+            },
+            "A_RD_S": {
+                "text": "缺貨"
+            },
+            "A_BL_S": {
+                "text": "缺貨"
+            },
+            "A_SL_M": {
+                "text": "缺貨"
+            },
+            "A_SL_SM": {
+                "text": "缺貨"
+            },
+            "A_BL_SM": {
+                "text": "缺貨"
+            },
+            "A_RD_SM": {
+                "text": "缺貨"
+            }
+        },
+        "vghk": {
+            "A_BK_SM": {
+                "text": "缺貨"
+            },
+            "A_BK_LL": {
+                "text": "缺貨"
+            },
+            "A_BL_SM": {
+                "text": "缺貨"
+            },
+            "A_SL_M": {
+                "text": "缺貨"
+            },
+            "A_BK_L": {
+                "text": "缺貨"
+            },
+            "A_LP_L": {
+                "text": "缺貨"
+            },
+            "A_SL_L": {
+                "text": "缺貨"
+            },
+            "A_SL_LL": {
+                "text": "缺貨"
+            },
+            "A_LP_SM": {
+                "text": "缺貨"
+            },
+            "A_LP_LL": {
+                "text": "缺貨"
+            }
+        }
+    }
+}

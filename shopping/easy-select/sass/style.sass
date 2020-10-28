@@ -1,0 +1,21 @@
+// 輕鬆選擇
+.easy-select
+    .color-selector, .size-selector, .quantity-selector
+
+        > .title
+            font-weight: bold
+
+        label
+            cursor: pointer
+
+            &:not(:last-child)
+                margin-right: 15px
+
+        input[type="radio"]
+            display: inline-block
+            margin-right: 5px
+            cursor: pointer
+
+    [data-id="product_name"]
+        @media screen and (max-width: 768px)
+            display: block

@@ -1,0 +1,64 @@
+{
+    "LockedProduct": {
+        "lp02": {
+            "A_WT_ML": {
+                "text": "待補貨"
+            },
+            "A_MT_SS": {
+                "text": "待補貨"
+            },
+            "A_WT_SS": {
+                "text": "待補貨"
+            },
+            "A_AQ_SS": {
+                "text": "待補貨"
+            },
+            "A_MC_SS": {
+                "text": "待補貨"
+            },
+            "A_LV_SS": {
+                "text": "待補貨"
+            }
+        },
+        "lp03": {
+            "A_WT_ML": {
+                "text": "待補貨"
+            },
+            "A_MT_SS": {
+                "text": "待補貨"
+            },
+            "A_WT_SS": {
+                "text": "待補貨"
+            },
+            "A_AQ_SS": {
+                "text": "待補貨"
+            },
+            "A_MC_SS": {
+                "text": "待補貨"
+            },
+            "A_LV_SS": {
+                "text": "待補貨"
+            }
+        },
+        "double11_2019": {
+            "A_WT_ML": {
+                "text": "待補貨"
+            },
+            "A_MT_SS": {
+                "text": "待補貨"
+            },
+            "A_WT_SS": {
+                "text": "待補貨"
+            },
+            "A_AQ_SS": {
+                "text": "待補貨"
+            },
+            "A_MC_SS": {
+                "text": "待補貨"
+            },
+            "A_LV_SS": {
+                "text": "待補貨"
+            }
+        }
+    }
+}

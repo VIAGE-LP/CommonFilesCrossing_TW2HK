@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+/** fix lp cart conflict  **/
+#lp_form {
+    letter-spacing: initial;
+}
+#lp_form div[id*='Memo'] > p.rightContents, #lp_form div[id*='addrSample'] > p.rightContents{
+    margin: initial;
+}
+#lp_form div[id*='Memo'] > p.leftContents{
+    margin: initial;
+}
+#lp_form div[id*='Memo'] label{
+    display: initial;
+}
+#lp_form label{
+    margin-bottom: initial;
+	font-weight: initial;
+}
+#lp_form a:not([href]):not([tabindex]){
+    color: #fff;
+}
+#lp_form .checkStyle::after, #lp_form .checkStyle::before {
+    box-sizing: initial;
+}

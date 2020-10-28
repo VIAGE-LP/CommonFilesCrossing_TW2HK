@@ -1,0 +1,16 @@
+.easy-select .color-selector > .title, .easy-select .size-selector > .title, .easy-select .quantity-selector > .title {
+  font-weight: bold; }
+
+.easy-select .color-selector label, .easy-select .size-selector label, .easy-select .quantity-selector label {
+  cursor: pointer; }
+  .easy-select .color-selector label:not(:last-child), .easy-select .size-selector label:not(:last-child), .easy-select .quantity-selector label:not(:last-child) {
+    margin-right: 15px; }
+
+.easy-select .color-selector input[type="radio"], .easy-select .size-selector input[type="radio"], .easy-select .quantity-selector input[type="radio"] {
+  display: inline-block;
+  margin-right: 5px;
+  cursor: pointer; }
+
+@media screen and (max-width: 768px) {
+  .easy-select [data-id="product_name"] {
+    display: block; } }

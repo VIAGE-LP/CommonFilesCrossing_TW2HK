@@ -1,0 +1,453 @@
+$ = jQuery;
+
+$(function () {
+  var checkLP_timer = setInterval(function () {
+    if ($('#lp_form').length > 0) {
+      setTimeout(function () {
+        multiProductInit();
+      }, 1000);
+      clearInterval(checkLP_timer);
+    }
+  }, 1000);
+});
+
+function multiProductInit() {
+  // 取得語言
+  lang = getLanguage();
+
+  // 移除購入商品
+  $('#productCode').remove();
+
+  // 購入商品初始化
+  productSelectionInit();
+
+  // 金額信息
+  amountInfoInit();
+
+  // 商品選択欄組み立て
+  populateProductSelection();
+
+  // 訂單按鈕監聽
+  submitBtnListen();
+
+  // 超商按鈕監聽
+  convStoreBtnListen();
+
+  // 帶入SESSION下拉選單資料
+  setMultiProductsSessionDefault();
+}
+
+function getLanguage() {
+  var lang, path;
+  if (SETTING_LANGUAGE == "tw") {
+    path = SETTING_LANG_JSON_URL + "/lang_tw.json";
+  } else if (SETTING_LANGUAGE == "cn") {
+    path = SETTING_LANG_JSON_URL + "/lang_cn.json";
+  } else if (SETTING_LANGUAGE == "en") {
+    path = SETTING_LANG_JSON_URL + "/lang_en.json";
+  } else if (SETTING_LANGUAGE == "hk") {
+    path = SETTING_LANG_JSON_URL + "/lang_hk.json";
+  } else {
+    alert("not exist language file");
+  }
+  path += '?time=' + new Date().getTime();  
+  $.ajax({
+    'url': path,
+    'method': 'get',
+    'async': false,
+    'success': function (data) {
+      lang = data;
+    }
+  });
+
+  return lang;
+}
+
+// 購入商品初始化
+function productSelectionInit() {
+  // 購入商品
+  $('<div id="productSelection"></div>').prependTo('#tr_productCode .rightContents');
+
+  // 折扣金額
+  var tr_discount_price = $('<div id="tr_discount_price"></div>').appendTo('#tr_productCode .rightContents');
+  $('<span class="titlefont" id="langDiscount">折扣金額：$ </span>').appendTo(tr_discount_price);
+  $('<span class="titlefont4" id="discountAmount"></span>').appendTo(tr_discount_price);
+
+  // 支付金額
+  var tr_payment_amount = $('<div id="tr_payment_amount"></div>').appendTo('#tr_productCode .rightContents');
+  $('<span class="titlefont" id="langPaymentAmount">支付金額：$ </span>').appendTo(tr_payment_amount);
+  $('<span class="titlefont4" id="paymentAmount"></span>').appendTo(tr_payment_amount);
+
+  // 所選商品
+  var tr_selected_product_info = $('<div id="tr_selected_productInfo"></div>').appendTo('#tr_productCode .rightContents');
+  $('<span class="titlefont" id="langSelectedProductInfo">所選商品：</span>').appendTo(tr_selected_product_info);
+  $('<ul id="tr_selected_productInfo_list"></ul>').insertAfter(tr_selected_product_info);
+
+  // 複數商品編號
+  $('<input type="hidden" name="products" id="products">').appendTo('#lp_form');
+}
+
+// 金額信息初始化
+function amountInfoInit() {
+  // 金額信息
+  var amount_info = $('<div class="amount-info" id="amount_info"></div>').appendTo('#lp_form');
+
+  // 商品金額
+  var amount_info_price = $('<div id="amount_info_price"></div>').appendTo(amount_info);
+  $('<span class="titlefont" id="amountInfoLangProductPrice">商品金額：$ </span>').appendTo(amount_info_price);
+  $('<span class="titlefont4" id="amountInfoPrice"></span>').appendTo(amount_info_price);
+  $('<hr>').appendTo(amount_info_price);
+
+  // 折扣金額
+  var amount_info_discount_price = $('<div id="amount_info_discount_price"></div>').appendTo(amount_info);
+  $('<span class="titlefont" id="amountInfoLangDiscount">折扣金額：$ </span>').appendTo(amount_info_discount_price);
+  $('<span class="titlefont4" id="amountInfoDiscountAmount"></span>').appendTo(amount_info_discount_price);
+  $('<hr>').appendTo(amount_info_discount_price);
+
+  // 支付金額
+  var amount_info_payment_amount = $('<div id="amount_info_payment_amount"></div>').appendTo(amount_info);
+  $('<span class="titlefont" id="amountInfoLangPaymentAmount">支付金額：$ </span>').appendTo(amount_info_payment_amount);
+  $('<span class="titlefont4" id="amountInfoPaymentAmount"></span>').appendTo(amount_info_payment_amount);
+  $('<hr>').appendTo(amount_info_payment_amount);
+
+  // 所選商品
+  $('<div id="selectedProductInfo"></div>').appendTo(amount_info);
+
+  // 清除選擇
+  var clear_box = $('<div class="reset-selected-product-box"></div>').appendTo(amount_info);;
+  var clear_btn = $('<button>', {
+    'class': 'reset-selected-product-btn',
+    'id': 'resetSelectedProductBtn',
+    'type': 'button',
+    'text': lang.langResetSelectedProductText,
+    'click': function () {
+      resetSelectedProduct();
+    },
+  }).appendTo(clear_box);
+}
+
+// 商品選択欄組み立て
+function populateProductSelection() {
+  for (var i = 0; i < PRODUCT_LIST.length; i++) {
+    var this_product_id = PRODUCT_LIST[i].product_id;
+    var this_product_selection = $('<div id="productSelection_' + this_product_id + '">');
+
+    $('#productSelection').append(this_product_selection);
+
+    // 商品名
+    this_product_selection.append('<span style="width:30%" class="titlefont">' + PRODUCT_LIST[i].product_name + '</span>');
+
+    // Cagegory1（色）
+    for (var j = 0; j < CATEGORY_1_LIST.list.length; j++) {
+      var row = $('<div class="row"></div>');
+
+      // Category1（色）リスト選択肢見出し
+      this_product_selection.append('<div class="titlefont4">' + CATEGORY_1_LIST.list[j].label + '</div>');
+
+      // 画像を出力
+      this_product_selection.append('<img class="category1Image" src="' + PRODUCT_LIST[i].image_urls[j].image_url + '">');
+
+      // Category2（サイズ）
+      for (var k = 0; k < CATEGORY_2_LIST.list.length; k++) {
+        var col_md_6 = $('<div class="col-md-6"></div>');
+        var objectId = this_product_id + '_' + CATEGORY_1_LIST.list[j].value + '_' + CATEGORY_2_LIST.list[k].value;
+
+        // サイズ名
+        $('<span class="size-title titlefont">' + CATEGORY_2_LIST.list[k].label + '</span>').appendTo(col_md_6);
+        // 数量選択
+        $('<button class="quantity-change" type="button" value="ー" onClick="minusQuantity(' + objectId + ')"> ー </button>').appendTo(col_md_6);
+        var selector = $('<select type="select" name="' + objectId + '" id="' + objectId + '"></select>');
+        selector.append(
+          '<option value="0">0件</option>' +
+          '<option value="1">1件</option>' +
+          '<option value="2">2件</option>' +
+          '<option value="3">3件</option>' +
+          '<option value="4">4件</option>' +
+          '<option value="5">5件</option>'
+        );
+        selector.appendTo(col_md_6);
+        col_md_6.append('<button class="quantity-change" type="button" value="＋" onClick="plusQuantity(' + objectId + ')"> ＋ </button>');
+        col_md_6.appendTo(row);
+
+        // イベント登録
+        selector.on('change', function () {
+          getAmount();
+        });
+
+      }
+      row.appendTo('#productSelection_' + this_product_id);
+      this_product_selection.append('<br>');
+    }
+    $('#productSelection').append('<hr>')
+  }
+}
+
+// 購入数量加算
+function plusQuantity(objectId) {
+  var selectedVal = $('#' + objectId.id).val();
+  if (selectedVal >= 5) {
+    return;
+  }
+  selectedVal++;
+  $('#' + objectId.id).val(selectedVal);
+  getAmount();
+}
+
+// 購入数量減算
+function minusQuantity(objectId) {
+  var selectedVal = $('#' + objectId.id).val();
+  if (selectedVal == 0) {
+    return;
+  }
+  selectedVal--;
+  $('#' + objectId.id).val(selectedVal);
+  getAmount();
+}
+
+// 商品コードマッピングよりCROS product_codeを決定する
+function getProductCode(productId, category1, category2) {
+  for (var i = 0; i < PRODUCT_CATEGORY_MAPPING.length; i++) {
+    if (PRODUCT_CATEGORY_MAPPING[i].product_id == productId) {
+      for (var j = 0; j < PRODUCT_CATEGORY_MAPPING[i].product_code_mapping.length; j++) {
+        if (PRODUCT_CATEGORY_MAPPING[i].product_code_mapping[j].category1 == category1 && PRODUCT_CATEGORY_MAPPING[i].product_code_mapping[j].category2 == category2) {
+          return PRODUCT_CATEGORY_MAPPING[i].product_code_mapping[j].product_code;
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+// 商品選択をすべてクリアする
+function resetSelectedProduct() {
+  for (var i = 0; i < PRODUCT_LIST.length; i++) {
+    var productId = PRODUCT_LIST[i].product_id;
+    for (var j = 0; j < CATEGORY_1_LIST.list.length; j++) {
+      for (var k = 0; k < CATEGORY_2_LIST.list.length; k++) {
+        var objectId = productId + "_" + CATEGORY_1_LIST.list[j].value + "_" + CATEGORY_2_LIST.list[k].value;
+        var quantity = $('#' + objectId).val();
+
+        if (quantity > 0) {
+          $('#' + objectId).val(0);
+        }
+      }
+    }
+  }
+  $('#discountText').remove();
+  getAmount();
+}
+
+// 選択された商品情報を取得
+function getSelectedProductJson() {
+  var selectedProducts = new Array();
+  for (var i = 0; i < PRODUCT_LIST.length; i++) {
+    var productId = PRODUCT_LIST[i].product_id;
+    for (var j = 0; j < CATEGORY_1_LIST.list.length; j++) {
+      for (var k = 0; k < CATEGORY_2_LIST.list.length; k++) {
+        var objectId = productId + "_" + CATEGORY_1_LIST.list[j].value + "_" + CATEGORY_2_LIST.list[k].value;
+        var quantity = $('#' + objectId).val();
+
+        if (quantity > 0) {
+          var productCode = getProductCode(productId, CATEGORY_1_LIST.list[j].value, CATEGORY_2_LIST.list[k].value);
+          var selectedProduct = {};
+          selectedProduct.product_code = productCode;
+          selectedProduct.quantity = quantity;
+          selectedProduct.regular_purchase_flg = 0;
+
+          selectedProduct.product_name = PRODUCT_LIST[i].product_name_short;
+          selectedProduct.category_name_1 = CATEGORY_1_LIST.list[j].label_short;
+          selectedProduct.category_name_2 = CATEGORY_2_LIST.list[k].label_short;
+
+          selectedProducts.push(selectedProduct);
+        }
+      }
+    }
+  }
+
+  return selectedProducts;
+}
+
+// 金額／割引額計算
+function getAmount() {
+  selectedProductsInfo = getSelectedProductJson();
+
+  if (selectedProductsInfo.length == 0) {
+    $('#price').text(0);
+    $('#discountAmount').text(0);
+    $('#paymentAmount').text(0);
+    $('#amount_info').hide();
+    $('#selectedProductInfo').empty();
+    $('#tr_selected_productInfo_list').empty();
+    $("#products").val('');
+
+    // 確認總金額
+    checkTotlePrice(0);
+
+    return;
+  }
+
+  $("#products").val(JSON.stringify(selectedProductsInfo));
+
+  $.ajax({
+    url: SETTING_ACTION_URL,
+    type: "POST",
+    // async: false,
+    cache: false,
+    dataType: "json",
+    data: {
+      "type": "seletProductAsJson",
+      "userId": $('#userId').val(),
+      "time": new Date().getTime(),
+      "accountId": $('#id').val(),
+      "promotionCode": $('#promotionCode').val(),
+      "products": JSON.stringify(selectedProductsInfo)
+    },
+    success: function (data) {
+
+      // 金額
+      $('#price').text((data.amount + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+      $('#amountInfoPrice').text((data.amount + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+
+      // 割引額
+      if (data.discount < 0) {
+        $('#discountAmount').text((data.discount + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+        $('#amountInfoDiscountAmount').text((data.discount + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+      } else {
+        $('#discountAmount').text('0');
+        $('#amountInfoDiscountAmount').text('0');
+      }
+
+      var paymentAmount = data.amount + data.discount;
+      $('#paymentAmount').text(((data.amount + data.discount) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+      $('#amountInfoPaymentAmount').text(((data.amount + data.discount) + '').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+      $('#amount_info').show();
+
+      // 確認總金額
+      checkTotlePrice(paymentAmount);
+
+      // 所選商品
+      $('#selectedProductInfo').empty()
+      $('#selectedProductInfo').append('<br />');
+      $('#selectedProductInfo').append('<br />');
+      $('#selectedProductInfo').append('<div id="seletedProductTitle" class="selected-product_title">' + lang.langSelectedProductTitle + '</div>');
+      $('#tr_selected_productInfo_list').html('');
+      var totalQuantity = 0;
+      for (var i = 0; i < selectedProductsInfo.length; i++) {
+        totalQuantity += parseInt(selectedProductsInfo[i].quantity)
+
+        // #32575 增加折扣紅字
+        if( totalQuantity == 3 && $('#discountText').length == 0){
+          $('#amount_info_payment_amount').append('<div id="discountText" style="color: red; font-weight: 900;">恭喜您符合滿額折扣優惠資格，支付金額已折1,140</div>')
+        }else if (totalQuantity < 3 || totalQuantity > 3) {
+          $('#discountText').remove();
+        }
+
+        if (selectedProductsInfo[i].product_name != '') {
+          $('#selectedProductInfo').append('<span class="size-title titlefont">' + selectedProductsInfo[i].product_name + '</span>');
+        }
+
+        $('#selectedProductInfo').append('<span class="size-title titlefont">' + selectedProductsInfo[i].category_name_1 + '</span>');
+        $('#selectedProductInfo').append('<span class="size-title titlefont">' + selectedProductsInfo[i].category_name_2 + '</span>');
+        $('#selectedProductInfo').append('<span class="size-title titlefont">' + selectedProductsInfo[i].quantity + '件</span>');
+        $('#selectedProductInfo').append('<br />');
+
+        var product_info = '';
+        if (selectedProductsInfo[i].product_name != '') {
+          product_info += selectedProductsInfo[i].product_name + '&nbsp;';
+        }
+        product_info += selectedProductsInfo[i].category_name_1 + '&nbsp';
+        product_info += selectedProductsInfo[i].category_name_2 + '&nbsp';
+        product_info += selectedProductsInfo[i].quantity + '件';
+        $('<li>').html(product_info).appendTo('#tr_selected_productInfo_list');
+      }
+      $('#selectedProductInfo').append('<hr />');
+
+    },
+    error: function (xhr, textStatus, errorThrown) {}
+  });
+}
+
+// 確認總金額
+function checkTotlePrice(totalPrice) {
+  if ((SETTING_SHIPPING_CARRIER == "C" && totalPrice > 20000) ||
+    (SETTING_SHIPPING_CARRIER == "Y" && totalPrice > 5000) ||
+    (SETTING_SHIPPING_CARRIER != "C" && SETTING_SHIPPING_CARRIER != "Y" && totalPrice > 4000)) {
+    // 停用超商機能
+
+    // 超商付款
+    $('#paymentMethod_conv').prop({
+      'disabled': true,
+      'checked': false
+    });
+    $('label[for="paymentMethod_conv"], #lb_paymentMethod_conv').attr('disabled', ''); // CSS樣式
+    // 超商取貨
+    $('#receivingMethod_conv').prop({
+      'disabled': true,
+      'checked': false
+    });
+    $('label[for="receivingMethod_conv"], #lb_receivingMethod_conv').attr('disabled', ''); // CSS樣式
+
+    // 隱藏超商資訊
+    $('#tr_cvsSpot').hide();
+    $('#tr_cvsName').hide();
+    $('#tr_cvsTel').hide();
+    $('#tr_cvsMemo').hide();
+    $('#tr_cvsNum').hide();
+    $('#langCvsCardMemo').hide();
+  } else {
+    // 啟用超商機能
+    $('#paymentMethod_conv').prop('disabled', false);
+    $('label[for="paymentMethod_conv"], #lb_paymentMethod_conv').removeAttr('disabled'); // CSS樣式
+    $('#receivingMethod_conv').prop('disabled', false);
+    $('label[for="receivingMethod_conv"], #lb_receivingMethod_conv').removeAttr('disabled'); // CSS樣式
+  }
+}
+
+// 訂單按鈕監聽
+function submitBtnListen() {
+  $("#submitBtn > a").click(function () {
+    selectedProductsInfo = getSelectedProductJson();
+    if (selectedProductsInfo.length > 0) {
+      $("#products").val(JSON.stringify(selectedProductsInfo));
+    }
+  });
+}
+
+// 超商按鈕監聽
+function convStoreBtnListen() {
+  $('#lang711MapBtn, #langFOHMapBtn, #langCvsMapBtn').click(function () {
+    setMultiProductsLocalStorage();
+  })
+}
+
+// 將下拉選單資料, 儲存至sessionStorage
+function setMultiProductsLocalStorage() {
+  var multiProducts = $('#productSelection select');
+  multiProducts.each(function (i, item) {
+    var selectedValue = $(item).val();
+    var selectId = $(item).prop('id');
+    var isDisabled = $(item).is(':disabled');
+    if (selectedValue > 0 && isDisabled == false) {
+      window.sessionStorage.setItem(selectId, selectedValue);
+    }
+  });
+}
+
+// 將sessionStorage資料, 自動帶入下拉選單
+function setMultiProductsSessionDefault() {
+  var multiProducts = $('#productSelection select');
+  multiProducts.each(function (i, item) {
+    var selectId = $(item).prop('id');
+    var isDisabled = $(item).is(':disabled');
+    var selectedValue = window.sessionStorage.getItem(selectId);
+    var product_item = $(item).parents('.product_item');
+    if (selectedValue > 0 && isDisabled == false) {
+      $(item).val(selectedValue);
+      product_item.css('max-height', product_item.prop('scrollHeight'));
+    }
+  });
+
+  // 金額計算
+  getAmount();
+}

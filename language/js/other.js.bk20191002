@@ -1,0 +1,379 @@
+// =====================================================
+// 檔案名稱：CO-Medical様js共通ファイル
+// 檔案用途：カスタマイズのjs、タグなどは既にここに書いてある
+// 檔案建立日：2018.10.26
+// 檔案建立人：Sam.Chang
+// ＊＊ps.增加或修改請一定要備註寫清楚做何用途，感謝＊＊
+// =====================================================
+jQuery(function ($) {
+  var time = new Date().getTime();
+  var API_script_LINK = 'https://www.cros.tw/lp/development/LP_API/API.js?time' + time;
+  var API_script_TAG = $('<script>').prop('src', API_script_LINK);
+  $('head').append(API_script_TAG);
+});
+
+window.addEventListener("load", function () {
+  //addPolicy();
+  // if(location.pathname == "/hk/lp01/"){
+  //   addMemo();
+  // }
+  if (location.pathname == "/hk/lp01/") {
+    disableSize();
+  }
+  if (location.pathname == "/hk/lp02/" || location.pathname == "/hk/lp03/" || location.pathname == "/hk/double11_2019/") {
+    disableSize2();
+  }
+  addTr_Memo();
+});
+
+/* ----------------------------------------------- 共通ポリシーテキスト ----------------------------------------------- */
+var policyText =
+  "【注意事項】\n\
+依照消保法規範，本產品屬個人衛生用品，商品拆封後無7天猶豫期，\n\
+因此僅受理全新狀態之退貨，敬請見諒。\n\
+【商品退換貨說明】\n\
+① 未開封開品提供7天的鑑賞期。\n\
+在7天內若要辦理退換貨，請務必致電通知客服中心。※請注意！鑑賞期並非試用期。若欲進行退貨，商品必須為未開封狀態。\n\
+\n\
+② 退貨時，請您將商品連同出貨明細表、發票寄回。\n\
+退貨時，商品必須保持商品本體，商品內外包裝、贈品等，必須為您收到商品時尚未損壞的狀態，收到商品後，會立即為您辦理。\n\
+\n\
+※ 指回復至您收到商品時的原始狀態。\n\
+③ 請您以送貨使用之原包裝紙箱將退貨商品包裝妥當寄回。\n\
+但若原紙箱已遺失，可另使用其他紙箱包覆商品，切勿直接於商品上黏貼紙張或書寫文字。\n\
+\n\
+④ 若欲退貨的商品，是參加活動而組套出售的促銷商品，不可單品退貨，需將套組商品一起退回。\n\
+⑤ 如客戶訂購後若大量退換貨，由於已造成作業上之困擾，可能會視情況對該客戶採取拒絕交易辦理。\n\
+⑥ 目前辦理換貨僅能針對同一項商品更換，無法將商品A換為商品B。\n\
+請留意，鑑賞期非試用期，若您收到商品經檢視後有任何不合意之處，請勿拆開使用，並立即依照退貨規定辦理退貨。";
+/* ----------------------------------------------- 共通ポリシーテキスト ----------------------------------------------- */
+
+/*香港的網頁無消保法，不需寫入
+function addPolicy() {
+  if (document.getElementById("policy") == null) {
+    setTimeout(addPolicy, 1000);
+    return;
+  }
+
+  policyTitle = document.getElementById("policyTitle");
+  policyTitle.innerText = "▼己詳閱並同意以下事項、確認訂購▼";
+
+  policyContact = document.getElementById("policyText");
+  policyContact.innerHTML = policyText;
+  policyContact.style.display = "";
+}
+*/
+
+//限定hk網頁顯示
+window.onload = function () {
+  if (window.location.href.indexOf("hk") > -1) {
+    leftContents1 = document.getElementById("leftContents1");
+    leftContents1.innerText = "★客戶須知★";
+
+    rightContents1 = document.getElementById("rightContents1");
+    if (location.pathname == "/hk/lp01/") {
+      rightContents1.innerHTML =
+        '<span style="line-height: 30px;">實際費用將以港幣兌換新台幣之交易匯率為準<br>\n\
+        ①　一件 1200元<br>\n\
+        ②　二件 2280元<br>\n\
+        ③　三件 3240元<br>\n\
+        ★下單後約3-5個工作天發貨★<br>\n\
+        也會以E-mail通知您訂購成功及出貨成功的訊息。<br>\n\
+        屆時請留意信件，非常感謝!<br>\n\
+        ★退貨相關規定★<br>\n\
+        本產品屬個人衛生用品，無特別原因(如商品已破損致不堪使用)<br>\n\
+        不提供退貨服務，敬請見諒。<br>\n\
+        購買前先測量 多一個步驟讓網路購物更安心。<br>\n\
+        </span>';
+    } else if (location.pathname == "/hk/lp02/" || location.pathname == "/hk/lp03/" ) {
+      rightContents1.innerHTML =
+        '<span style="line-height: 30px;">實際費用將以港幣兌換新台幣之交易匯率為準<br>\n\
+        ①　一件 1200元<br>\n\
+        ②　二件 2280元<br>\n\
+        ③　三件 3240元<br>\n\
+        ④　五件 5100元<br>\n\
+        ★下單後約3-5個工作天發貨★<br>\n\
+        也會以E-mail通知您訂購成功及出貨成功的訊息。<br>\n\
+        屆時請留意信件，非常感謝!<br>\n\
+        ★退貨相關規定★<br>\n\
+        本產品屬個人衛生用品，無特別原因(如商品已破損致不堪使用)<br>\n\
+        不提供退貨服務，敬請見諒。<br>\n\
+        購買前先測量 多一個步驟讓網路購物更安心。<br>\n\
+        </span>';
+    }else if (location.pathname == "/hk/double11_2019/") {
+      rightContents1.innerHTML =
+        '<span style="line-height: 30px;">實際費用將以港幣兌換新台幣之交易匯率為準<br>\n\
+        ①　一件 1200元<br>\n\
+        ②　二件 2280元<br>\n\
+        ③　三件 2999元<br>\n\
+        ④　五件 4950元<br>\n\
+        ★下單後約3-5個工作天發貨★<br>\n\
+        也會以E-mail通知您訂購成功及出貨成功的訊息。<br>\n\
+        屆時請留意信件，非常感謝!<br>\n\
+        ★退貨相關規定★<br>\n\
+        本產品屬個人衛生用品，無特別原因(如商品已破損致不堪使用)<br>\n\
+        不提供退貨服務，敬請見諒。<br>\n\
+        購買前先測量 多一個步驟讓網路購物更安心。<br>\n\
+        </span>';
+    }
+  }
+};
+function disableSize() {
+  //鎖住兩個顏色的size
+  if (document.getElementById("productSelection_A") == null) {
+    setTimeout(disableSize, 1000);
+    return;
+  }
+  jQuery(".titlefont4:eq(2)").after(
+    jQuery("<div>", {
+      class: "titlefont",
+      html: '<font color="red">S~M, M~L售完</font>',
+    })
+  );
+  jQuery(".titlefont4:eq(1)").after(
+    jQuery("<div>", {
+      class: "titlefont",
+      html: '<font color="red">S~M, M~L售完</font>'
+    })
+  );
+  jQuery(".titlefont4:eq(0)").after(
+    jQuery("<div>", {
+      class: "titlefont",
+      html: '<font color="red">M~L售完</font>'
+    })
+  );
+
+  jQuery("#A_BL_M")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_BL_M")
+    .empty()
+    .append('<option value="0">完售<option>');
+
+  jQuery("#A_RD_M")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_RD_M")
+    .empty()
+    .append('<option value="0">完售<option>');
+
+  jQuery("#A_BK_S")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_BK_S")
+    .empty()
+    .append('<option value="0">完售<option>');
+
+  jQuery("#A_BK_M")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_BK_M")
+    .empty()
+    .append('<option value="0">完售<option>');
+
+  jQuery("#A_RD_S")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_RD_S")
+    .empty()
+    .append('<option value="0">完售<option>');
+}
+function addTr_Memo() {
+  if (document.getElementById("tr_memo") == null) {
+    setTimeout(addTr_Memo, 1000);
+    return;
+  }
+
+  //限定/hk/lp01/網頁顯示
+  if (window.location.href.indexOf("/hk/lp01/") > -1) {
+    jQuery("#tr_memo > .rightContents").html(
+      '<span style="line-height:18px;">\
+    1)「農曆新年前两周至農曆新年期間」、「端午節、中秋節前一周」及「雙11購物節後一至两周」為物流高峯期, 故無法指定配送時段敬請見諒。<br>\
+    2)另如遇颱風地震等天災、公共工程、節慶活動管制路段, 出貨時間將順延。 實際送達時間, 以物流公司嘅出貨日, 送貨路線及貨量為主。<br>\
+    </span>'
+    );
+  }
+  //限定/hk/lp01/網頁顯示
+  jQuery("#tr_memo").show();
+}
+/**
+ * 新增缺貨備註 redmine #6730
+ */
+function addMemo() {
+  $ = jQuery;
+  $(".titlefont4:eq(1)").before(
+    $("<div>", {
+      class: "titlefont",
+      html:
+        '<font color="red">黑色/粉色/深藍色 M-L、黑色L-LL目前缺貨, <br>預計1月下旬出貨。<br>造成您的不便, 非常抱歉! 敬請諒解!</font>'
+    })
+  );
+}
+
+/**
+ * GTM(Google Tag Manager)
+ * 呼叫寫法：
+ * <!-- Google Tag Manager -->
+ * <script type="text/javascript">callGTM();</script>
+ * <!-- End Google Tag Manager -->
+ */
+function callGTM() {
+  document.write(
+    '<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WN3RZNZ" \n\
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> \n\
+			<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({"gtm.start":\n\
+			new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],\n\
+			j=d.createElement(s),dl=l!="dataLayer"?"&l="+l:"";j.async=true;j.src= \n\
+			"https://www.googletagmanager.com/gtm.js?id="+i+dl;f.parentNode.insertBefore(j,f);\n\
+			})(window,document,"script","dataLayer","GTM-WN3RZNZ");</script>'
+  );
+}
+
+function disableSize2() {
+  // ../hk/lp02
+  if (document.getElementById("productSelection_A") == null) {
+    setTimeout(disableSize2, 1000);
+    return;
+  }
+
+  // jQuery(".titlefont4:eq(1)").after(
+  //   jQuery("<div>", {
+  //     class: "titlefont",
+  //     html: '<font color="red">S~M售完</font>',
+  //     style: 'max-height: 0px; opacity: 0; transition: opacity 0.4s ease-out;'
+  //   })
+  // );
+  // jQuery(".titlefont4:eq(3)").after(
+  //   jQuery("<div>", {
+  //     class: "titlefont",
+  //     html: '<font color="red">S~M售完</font>',
+  //     style: 'max-height: 0px; opacity: 0; transition: opacity 0.4s ease-out;'
+  //   })
+  // );
+  // jQuery(".titlefont4:eq(7)").after(
+  //   jQuery("<div>", {
+  //     class: "titlefont",
+  //     html: '<font color="red">S~M售完</font>',
+  //     style: 'max-height: 0px; opacity: 0; transition: opacity 0.4s ease-out;'
+  //   })
+  // );
+
+  jQuery("#A_WT_ML")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_WT_ML")
+    .empty()
+    .append('<option value="0">待補貨<option>');
+
+  jQuery("#A_MT_SS")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_MT_SS")
+    .empty()
+    .append('<option value="0">待補貨<option>');
+
+  jQuery("#A_WT_SS")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_WT_SS")
+    .empty()
+    .append('<option value="0">待補貨<option>');
+
+  jQuery("#A_AQ_SS")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_AQ_SS")
+    .empty()
+    .append('<option value="0">待補貨<option>');
+
+  jQuery("#A_MC_SS")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_MC_SS")
+    .empty()
+    .append('<option value="0">待補貨<option>');
+
+  jQuery("#A_LV_SS")
+    .parent()
+    .find(":input")
+    .attr("disabled", true);
+  jQuery("#A_LV_SS")
+    .empty()
+    .append('<option value="0">待補貨<option>');
+
+  //   jQuery("#A_WT_M")
+  //   .parent()
+  //   .find(":input")
+  //   .attr("disabled", true);
+  // jQuery("#A_WT_M")
+  //   .empty()
+  //   .append('<option value="0">待補貨<option>');
+  if (location.pathname == "/hk/double11_2019/") {
+    jQuery("#A_WT_ML")
+      .parent()
+      .find(":input")
+      .attr("disabled", true);
+    jQuery("#A_WT_ML")
+      .empty()
+      .append('<option value="0">待補貨<option>');
+  }
+  // jQuery("#A_WT_LL")
+  //   .parent()
+  //   .find(":input")
+  //   .attr("disabled", true);
+  // jQuery("#A_WT_LL")
+  //   .empty()
+  //   .append('<option value="0">待補貨<option>');
+
+  // 2019 07 29 #15085
+  // jQuery("#A_BL_S")
+  //   .parent()
+  //   .find(":input")
+  //   .attr("disabled", true);
+  // jQuery("#A_BL_S")
+  //   .empty()
+  //   .append('<option value="0">待補貨<option>');
+
+  // jQuery("#A_RD_S")
+  //   .parent()
+  //   .find(":input")
+  //   .attr("disabled", true);
+  // jQuery("#A_RD_S")
+  //   .empty()
+  //   .append('<option value="0">待補貨<option>');
+
+  // jQuery("#A_WN_S")
+  //   .parent()
+  //   .find(":input")
+  //   .attr("disabled", true);
+  // jQuery("#A_WN_S")
+  //   .empty()
+  //   .append('<option value="0">待補貨<option>');
+
+  // jQuery("#A_WT_ML")
+  //   .parent()
+  //   .find(":input")
+  //   .attr("disabled", true);
+  // jQuery("#A_WT_ML")
+  //   .empty()
+  //   .append('<option value="0">待補貨<option>');
+
+  //#16778
+  // jQuery("#A_LV_LL")
+  //   .parent()
+  //   .find(":input")
+  //   .attr("disabled", true);
+  // jQuery("#A_LV_LL")
+  //   .empty()
+  //   .append('<option value="0">待補貨<option>');
+}

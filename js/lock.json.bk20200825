@@ -1,0 +1,30 @@
+{
+    "LockedProduct": {
+        "vghk_lockTest": {
+            
+        },
+        "vghk": {
+            "A_SG_SM": {
+                "text": "缺貨"
+            },
+            "A_HB_LL": {
+                "text": "缺貨"
+            },
+            "A_HB_SM": {
+                "text": "缺貨"
+            },
+            "A_SG_ML": {
+                "text": "缺貨"
+            },
+            "A_SL_M": {
+                "text": "缺貨"
+            },
+            "A_SG_LL": {
+                "text": "缺貨"
+            },
+            "A_SG_L": {
+                "text": "缺貨"
+            }
+        }
+    }
+}
