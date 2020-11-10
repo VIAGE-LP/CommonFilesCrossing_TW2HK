@@ -20,16 +20,16 @@ jQuery(function ($) {
 DisableSize();
 window.addEventListener("load", function () {
   addPolicy();
-  // edit_tr_HeadMemo();
-  if (location.pathname.indexOf('/hk/vghk/') > -1) {
-    edit_tr_HeadMemo2();
-  } else {
-    // preOrderPromptInit();
-  }
+  edit_tr_HeadMemo();
+  // if (location.pathname.indexOf('/hk/vghk/') > -1) {
+  //   edit_tr_HeadMemo2();
+  // } else {
+  //   preOrderPromptInit();
+  // }
  // disableSize2();
   // addCardMomo();
   // disableSize3();
-  edit_tr_HeadMemo3();
+  // edit_tr_HeadMemo3();
   // preOrderPromptInitAll();
   // addPreOrderMemo();
 });
@@ -121,20 +121,22 @@ function edit_tr_HeadMemo() {
   jQuery("#langHeadMemoTitle").html('注意事項');
 
   jQuery("#langHeadMemoBody").html('\
-      ＜退換貨說明＞<br>\
-      本商品屬個人衛生用品，恕無法受理因個人因素之退換貨，敬請見諒。<br>\
-      ＜配送說明＞<br>\
-      本商品係由日本HRC株式会社委託台灣娜珂黛肌美容事業有限公司負責發貨，<font color="red">若您因個人因素多次無法收貨而導致商品被退回，退款金額將扣除運費約50港幣(等於200元台幣)</font>，不便之處敬請見諒。<br>\
-      ＜選購指南＞<br>\
-      <font color="red">如未出現顏色選項請重新整理網頁後，即可選購。</font><br>\
-      ＜物流附加費＞<br>\
-      <font color="red">有關送貨時收取的住宅或偏遠地區附加費，請參照物流業者連結；若您不希望支付物流附加費，可選擇自行到順豐站所取貨，並請於備註留言說明，謝謝。</font><br>\
-      <預購說明><br>\
-      11/20起部分商品改為預購制，請看尺碼後是否有（預購）標識，購買預購商品將於12月16起按預購順序出貨。若購買多入組中包含預購商品，將同預購商品發貨日一起發送。');
-      // <br>\
-      // <預購說明><br>\
-      // <font color="red">10/1起部分商品改為預購制，請看尺碼後是否有（預購）標識，購買（預購）商品將於10月底按預購順序出貨。若購買多入組中包含預購商品，將同預購商品發貨日一起發送。標識為（缺貨）的商品暫時無法預購。\
-      // </font>
+  ＜付款提示＞<br>\
+  頁面所標示港幣金額為新台幣換算後之大概金額，信用卡的扣款金額由您的銀行之新台幣匯率決定。台幣金額為：<br>\
+  1入組  1360新台幣   2入組   2380新台幣   3入組   2940新台幣<br>\
+  4入組  3840新台幣   5入組   4700新台幣<br>\
+  ＜退換貨說明＞<br>\
+  本商品屬個人衛生用品，恕無法受理因個人因素之退換貨，敬請見諒。尺寸問題請您提前咨詢客服。<br>\
+  ＜配送說明＞<br>\
+  本商品係由日本HRC株式会社委託台灣娜珂黛肌美容事業有限公司從台灣發貨，<span style="color:red">若您因個人因素多次無法收貨而導致商品被退回，退款金額將扣除運費約50港幣(等於200元台幣)</span>，不便之處敬請見諒。<br>\
+  本頁面所標示最快2日送達香港指收到出貨EMAIL後，最快2日可送達香港。<br>\
+  【澳門地區】顧客也可以購買，請在地址欄選擇澳門，手提電話填寫澳門手機八位碼，不需國際區號。<br>\
+  ＜選購指南＞<br>\
+  <span style="color:red"> 如未出現顏色選項請重新整理網頁後，即可選購。</span><br>\
+  ＜物流附加費＞<br>\
+  <span style="color:red">有關送貨時收取的住宅或偏遠地區附加費，請參照物流業者連結；若您不希望支付物流附加費，可選擇自行到順豐站所取貨，並請於備註留言說明，謝謝。</span><br>\
+  ＜購買數量限制＞<br>\
+  為保證每位顧客都能體驗到商品，<span style="color:red">每位顧客每個月限購買10件</span>。超過的自動延期到下個月出貨或取消。<br>')
 }
 
 //edit tr_HeadMemo2
