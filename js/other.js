@@ -17,7 +17,7 @@ jQuery(function ($) {
 });
 //window.addEventListener('load', function() { addMomo1(); });
 //window.addEventListener('load', function() { addMomo16(); });
-DisableSize();
+// DisableSize();
 window.addEventListener("load", function () {
   addPolicy();
   edit_tr_HeadMemo();
@@ -30,7 +30,10 @@ window.addEventListener("load", function () {
   // addCardMomo();
   // disableSize3();
   // edit_tr_HeadMemo3();
+
+  // redmine #48230 刪除全數預購標籤
   // preOrderPromptInitAll();
+  
   // addPreOrderMemo();
 });
 
@@ -122,9 +125,9 @@ function edit_tr_HeadMemo() {
 
   jQuery("#langHeadMemoBody").html('\
   ＜付款提示＞<br>\
-  頁面所標示港幣金額為新台幣換算後之大概金額，信用卡的扣款金額由您的銀行之新台幣匯率決定。台幣金額為：<br>\
-  1入組  1360新台幣   2入組   2380新台幣   3入組   2940新台幣<br>\
-  4入組  3840新台幣   5入組   4700新台幣<br>\
+  頁面所標示港幣金額為新台幣換算後之大概金額，信用卡的扣款金額由您的銀行之新台幣匯率決定，貨到付款收款金額將按照物流公司(順豐)公布之匯率決定。台幣金額為：<br>\
+  1入組 1360新台幣 2入組 2380新台幣 3入組 2940新台幣<br>\
+  4入組 3840新台幣 5入組 4700新台幣<br>\
   ＜退換貨說明＞<br>\
   本商品屬個人衛生用品，恕無法受理因個人因素之退換貨，敬請見諒。尺寸問題請您提前咨詢客服。<br>\
   ＜配送說明＞<br>\
@@ -137,6 +140,10 @@ function edit_tr_HeadMemo() {
   <span style="color:red">有關送貨時收取的住宅或偏遠地區附加費，請參照物流業者連結；若您不希望支付物流附加費，可選擇自行到順豐站所取貨，並請於備註留言說明，謝謝。</span><br>\
   ＜購買數量限制＞<br>\
   為保證每位顧客都能體驗到商品，<span style="color:red">每位顧客每個月限購買10件</span>。超過的自動延期到下個月出貨或取消。<br>')
+
+  // ＜預購說明＞<br>\
+  // 因近期商品熱銷，部分商品改為預購制，<span style="color:red">請看尺碼後是否有（預購）標示，購買預購商品將於12/10按預購順序出貨。<br>\
+  // 若購買多入組中包含預購商品，將同預購商品發貨日一起發送。</span>預購商品恕不接受取消訂單。<br>
 }
 
 //edit tr_HeadMemo2
@@ -341,7 +348,7 @@ function preOrderPromptInitAll() {
   // A_RD_M PINK M
   // A_BK_M BLACK M
   let $ = jQuery;
-  let preOrderProductList = ['#A_RD_M','#A_SL_M','#A_SG_SM','#A_SG_M','#A_SG_ML','#A_SG_L','#A_SG_LL','#A_HB_SM','#A_HB_ML','#A_HB_L','#A_HB_LL','#A_LP_M','#A_BL_M'];
+  let preOrderProductList = ['#A_RD_M', '#A_LP_M', '#A_SG_S','#A_SG_SM','#A_SG_M','#A_SG_ML','#A_SG_L', '#A_HB_S','#A_HB_SM','#A_HB_M','#A_HB_ML','#A_HB_L', '#A_HB_LL'] ;
   // 如果匹配的項目(總和)數量 == 0, 會持續執行迴圈
   if (preOrderProductList.filter(item => $(item).length != 0).length == 0) {
     return void setTimeout(preOrderPromptInitAll, 500);
