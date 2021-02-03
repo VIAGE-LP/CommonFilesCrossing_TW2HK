@@ -8138,6 +8138,118 @@
         "address": "香港香港島南區赤柱馬坑邨良馬樓地下順便智能櫃+",
         "hour_weekday": "24小時",
         "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "黑沙環",
+        "code": "H853A002P",
+        "address": "澳門黑沙環海上居地下會所對出順便智能櫃(只供住戶使用)+",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "黑沙環",
+        "code": "H853A003P",
+        "address": "澳門黑沙環海天居地下穿梭大堂後門外順便智能櫃(只供住戶使用)",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "黑沙環",
+        "code": "H853A004P",
+        "address": "澳門信達廣場第1座地面層順便智能櫃",
+        "hour_weekday": "09:00-22:00",
+        "hour_holiday": "09:00-22:00"
+      },
+      {
+        "area": "澳門",
+        "region": "黑沙環",
+        "code": "H853A005P",
+        "address": "澳門信達廣場第2座地面層順便智能櫃",
+        "hour_weekday": "09:00-22:30",
+        "hour_holiday": "09:00-22:30"
+      },
+      {
+        "area": "澳門",
+        "region": "黑沙環",
+        "code": "H853A009P",
+        "address": "澳門黑沙環永豐工業大廈地下(順豐營業點)順便智能櫃",
+        "hour_weekday": "09:00-20:00",
+        "hour_holiday": "09:00-18:00"
+      },
+      {
+        "area": "澳門",
+        "region": "南灣",
+        "code": "H853A006P",
+        "address": "澳門華榕大廈信達坊地面層順便智能櫃",
+        "hour_weekday": "10:00-21:00",
+        "hour_holiday": "10:00-21:00"
+      },
+      {
+        "area": "澳門",
+        "region": "澳門",
+        "code": "H853A007P",
+        "address": "澳門白馬行信達城3樓順便智能櫃",
+        "hour_weekday": "10:00-22:00",
+        "hour_holiday": "10:00-22:00"
+      },
+      {
+        "area": "澳門",
+        "region": "澳門",
+        "code": "H853A010P",
+        "address": "澳門澳門城市大學第1座地下順便智能櫃(城大學生服務中心對面)",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "氹仔",
+        "code": "H853A008P",
+        "address": "澳門海茵怡居第2座2樓服務處外近天橋順便智能櫃(只供住戶使用)",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "氹仔",
+        "code": "H853A011P",
+        "address": "澳門廣東大馬路濠尚1座及2座共用升降機大堂順便智能櫃",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "氹仔",
+        "code": "H853A012P",
+        "address": "澳門濠尚3座貨用升降梯大堂順便智能櫃(只供住戶使用)",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "氹仔",
+        "code": "H853A013P",
+        "address": "澳門濠尚4座貨用升降梯大堂順便智能櫃(只供住戶使用)",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "氹仔",
+        "code": "H853A014P",
+        "address": "澳門濠尚6座貨用升降梯大堂順便智能櫃(只供住戶使用)",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
+      },
+      {
+        "area": "澳門",
+        "region": "氹仔",
+        "code": "H853A015P",
+        "address": "澳門濠尚7座及8座共用升降機大堂順便智能櫃(只供住戶使用)",
+        "hour_weekday": "24小時",
+        "hour_holiday": "24小時"
       }
     ]
   }

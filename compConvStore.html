@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="Content-Script-Type" content="text/javascript">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<script type="text/javascript">
+
+		function doOnload() {
+		
+			// コンビニのURLパラメータの取得
+			var arg = new Object;
+			var pair=location.search.substring(1).split('&');
+			for(var i=0;pair[i];i++) {
+				var kv = pair[i].split('=');
+				// デコード処理
+				kv[1]=decodeURIComponent(kv[1]);
+				arg[kv[0]]=kv[1];
+			}
+
+			var flag = arg.cvsid.split(',');
+
+			var agent = navigator.userAgent;
+			if (agent.search(/iPhone/) != -1 || agent.search(/iPad/) != -1 || agent.search(/iPod/) != -1 || agent.search(/Android/) != -1 && flag[1] == '1') {
+
+				// スマホからの遷移
+				// コンビニ情報をSessionStorageへ格納
+				window.sessionStorage.setItem(['labelCvsSpot'],[arg.cvsspot]);
+				window.sessionStorage.setItem(['labelCvsNum'],[arg.cvsnum]);
+				window.sessionStorage.setItem(['labelCvsName'],[arg.name]);
+				window.sessionStorage.setItem(['labelCvsTel'],[arg.tel]);
+				window.sessionStorage.setItem(['labelCvsAddr'],[arg.addr]);
+				var setHref = window.sessionStorage.getItem(['href']);
+				window.sessionStorage.removeItem(['href']);
+				// 画面遷移を行う
+				window.location.href = setHref;
+
+			}
+			else {
+
+				// PCからの遷移
+				if (flag[0] == 0) {
+					// LPからの遷移の場合
+					var $ = window.opener.jQuery;
+					$("#labelCvsSpot").html(arg.cvsspot);
+					$('#err_cvsSpot').html("");
+					$('#labelCvsSpot').removeClass("error_field");
+					$("#labelCvsNum").html(arg.cvsnum);
+					$('#err_cvsNum').html("");
+					$('#labelCvsNum').removeClass("error_field");
+					$("#labelCvsName").html(arg.name);
+					$('#err_cvsName').html("");
+					$('#labelCvsName').removeClass("error_field");
+					$("#labelCvsTel").html(arg.tel);
+					$('#err_cvsTel').html("");
+					$('#labelCvsTel').removeClass("error_field");
+					$("#labelCvsAddr").html(arg.addr);
+					$('#err_cvsAddr').html("");
+					$('#labelCvsAddr').removeClass("error_field");
+					
+					window.close();
+				} else if (flag[0] == 1) {
+					// CROSからの遷移の場合
+					var FN = window.opener.FN;
+					// 新クラウドウェアの場合の処理
+//					var apf = window.opener.OVS.appInstance.orderForm;
+//					apf.setItemValue(FN.cvsSpot,arg.cvsspot);
+//					apf.setItemValue(FN.cvsNum,arg.cvsnum);
+//					apf.setItemValue(FN.cvsName,arg.name);
+//					apf.setItemValue(FN.cvsTel,arg.tel);
+//					apf.setItemValue(FN.cvsAddr,arg.addr);
+					
+					// 旧クラウドウェアの場合の処理
+					var apf = window.opener.parent.lsAppForm;
+					apf.setValue(FN.cvsSpot,arg.cvsspot);
+					apf.setValue(FN.cvsNum,arg.cvsnum);
+					apf.setValue(FN.cvsName,arg.name);
+					apf.setValue(FN.cvsTel,arg.tel);
+					apf.setValue(FN.cvsAddr,arg.addr);
+					
+					window.close();
+				}
+			}
+		}
+	</script>
+</head>
+<body onload="doOnload()">
+</body>
+</html>

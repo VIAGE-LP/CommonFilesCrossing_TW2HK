@@ -4,104 +4,17 @@
 
         },
         "vghk": {
-            "A_SG_S": {
-                "text": "缺貨"
-            },
-            "A_HB_S": {
-                "text": "缺貨"
-            },
-            "A_HB_ML": {
-                "text": "缺貨"
-            },
-            "A_SG_ML": {
-                "text": "缺貨"
-            },
-            "A_HB_SM": {
-                "text": "缺貨"
-            },
-            "A_SG_M": {
-                "text": "缺貨"
-            },
-            "A_SG_SM": {
-                "text": "缺貨"
-            },
-            "A_HB_L": {
-                "text": "缺貨"
-            },
-            "A_HB_M": {
-                "text": "缺貨"
-            },
-            "A_LP_M": {
-                "text": "缺貨"
-            },
-            "A_SG_L": {
-                "text": "缺貨"
-            }
-        },
-        "vghkcan": {
-            "A_SG_S": {
-                "text": "缺貨"
-            },
-            "A_HB_S": {
-                "text": "缺貨"
-            },
-            "A_HB_ML": {
-                "text": "缺貨"
-            },
-            "A_SG_ML": {
-                "text": "缺貨"
-            },
-            "A_HB_SM": {
-                "text": "缺貨"
-            },
-            "A_SG_M": {
-                "text": "缺貨"
-            },
-            "A_SG_SM": {
-                "text": "缺貨"
-            },
-            "A_HB_L": {
-                "text": "缺貨"
-            },
-            "A_HB_M": {
-                "text": "缺貨"
-            },
             "A_LP_M": {
                 "text": "缺貨"
             }
         },
         "vgrphk": {
-            "A_SG_S": {
-                "text": "缺貨"
-            },
-            "A_HB_S": {
-                "text": "缺貨"
-            },
-            "A_HB_ML": {
-                "text": "缺貨"
-            },
-            "A_SG_ML": {
-                "text": "缺貨"
-            },
-            "A_HB_SM": {
-                "text": "缺貨"
-            },
-            "A_SG_M": {
-                "text": "缺貨"
-            },
-            "A_SG_SM": {
-                "text": "缺貨"
-            },
-            "A_HB_L": {
-                "text": "缺貨"
-            },
-            "A_HB_M": {
-                "text": "缺貨"
-            },
             "A_LP_M": {
                 "text": "缺貨"
-            },
-            "A_SG_L": {
+            }
+        },
+        "vghkcan": {
+            "A_LP_M": {
                 "text": "缺貨"
             }
         }

@@ -17,7 +17,7 @@ jQuery(function ($) {
 });
 //window.addEventListener('load', function() { addMomo1(); });
 //window.addEventListener('load', function() { addMomo16(); });
-DisableSize();
+// DisableSize();
 window.addEventListener("load", function () {
   addPolicy();
   edit_tr_HeadMemo();
@@ -26,7 +26,9 @@ window.addEventListener("load", function () {
   // } else {
   //   preOrderPromptInit();
   // }
+ // disableSize2();
   // addCardMomo();
+  // disableSize3();
   // edit_tr_HeadMemo3();
 
   // redmine #48230 刪除全數預購標籤
@@ -123,7 +125,7 @@ function edit_tr_HeadMemo() {
 
   jQuery("#langHeadMemoBody").html('\
   ＜付款提示＞<br>\
-  <span style="color: red;">頁面所標示港幣金額為新台幣換算後之大概金額，信用卡的扣款金額由您的銀行之新台幣匯率決定，貨到付款收款金額將按照物流公司(順豐)公布之匯率決定。</span>台幣金額為：<br>\
+  頁面所標示港幣金額為新台幣換算後之大概金額，信用卡的扣款金額由您的銀行之新台幣匯率決定，貨到付款收款金額將按照物流公司(順豐)公布之匯率決定。台幣金額為：<br>\
   1入組 1360新台幣 2入組 2380新台幣 3入組 2940新台幣<br>\
   4入組 3840新台幣 5入組 4700新台幣<br>\
   ＜退換貨說明＞<br>\
@@ -250,6 +252,25 @@ function GetJsonData() {
   return result.LockedProduct;
 }
 
+//for redmine #22970依賴 把缺貨的商品 櫻花粉S號顯示缺貨並鎖住下拉選項使其無法選購
+//for redmine #24339依賴 把缺貨的商品 海軍藍S號顯示缺貨並鎖住下拉選項使其無法選購
+function disableSize3() {
+  if (document.getElementById("productSelection_A") == null) {
+    setTimeout(disableSize3, 1000);
+    return;
+  }
+  jQuery('#A_RD_S').parent().find(':input').attr('disabled', true);
+  jQuery('#A_RD_S').empty().append('<option value="0">缺貨<option>');
+
+  jQuery('#A_BL_S').parent().find(':input').attr('disabled', true);
+  jQuery('#A_BL_S').empty().append('<option value="0">缺貨<option>');
+  
+  jQuery('#A_SL_M').parent().find(':input').attr('disabled', true);
+  jQuery('#A_SL_M').empty().append('<option value="0">缺貨<option>');
+  
+  jQuery('#A_SL_SM').parent().find(':input').attr('disabled', true);
+  jQuery('#A_SL_SM').empty().append('<option value="0">缺貨<option>');
+}
 function judgePriceTag() {
   if (!(jQuery('#resetSelectedProductBtn').length && jQuery('#productSelection_A .row').length)) {
     return void setTimeout(judgePriceTag, 500);
