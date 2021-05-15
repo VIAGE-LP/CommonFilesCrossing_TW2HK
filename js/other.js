@@ -29,7 +29,8 @@ window.addEventListener("load", function () {
   // addCardMomo();
   // edit_tr_HeadMemo3();
 
-  // redmine #48230 刪除全數預購標籤
+  // 缺貨中
+  outofstock();
   // preOrderPromptInitAll();
   
   // addPreOrderMemo();
@@ -137,11 +138,10 @@ function edit_tr_HeadMemo() {
   ＜物流附加費＞<br>\
   <span style="color:red">有關送貨時收取的住宅或偏遠地區附加費，請參照物流業者連結；若您不希望支付物流附加費，可選擇自行到順豐站所取貨，並請於備註留言說明，謝謝。</span><br>\
   ＜購買數量限制＞<br>\
-  為保證每位顧客都能體驗到商品，<span style="color:red">每位顧客每個月限購買10件</span>。超過的自動延期到下個月出貨或取消。<br>')
-
-  // ＜預購說明＞<br>\
-  // 因近期商品熱銷，部分商品改為預購制，<span style="color:red">請看尺碼後是否有（預購）標示，購買預購商品將於12/10按預購順序出貨。<br>\
-  // 若購買多入組中包含預購商品，將同預購商品發貨日一起發送。</span>預購商品恕不接受取消訂單。<br>
+  為保證每位顧客都能體驗到商品，<span style="color:red">每位顧客每個月限購買10件</span>。超過的自動延期到下個月出貨或取消。<br>\ ')
+  /*＜預購說明＞<br>\
+  因近期商品熱銷，部分商品改為預購制，<span style="color:red">請看尺碼後是否有（預購）標示，購買預購商品將於4/22按預購順序出貨。<br>\ 
+  若購買多入組中包含預購商品，將同預購商品發貨日一起發送。</span>預購商品恕不接受取消訂單。<br>*/
 }
 
 //edit tr_HeadMemo2
@@ -327,7 +327,7 @@ function preOrderPromptInitAll() {
   // A_RD_M PINK M
   // A_BK_M BLACK M
   let $ = jQuery;
-  let preOrderProductList = ['#A_RD_M', '#A_LP_M', '#A_SG_S','#A_SG_SM','#A_SG_M','#A_SG_ML','#A_SG_L', '#A_HB_S','#A_HB_SM','#A_HB_M','#A_HB_ML','#A_HB_L', '#A_HB_LL'] ;
+  let preOrderProductList = ['#A_SL_M','#A_RD_M','#A_RD_ML','#A_BL_SM','#A_BL_M','#A_LP_M','#A_SG_S','#A_HB_S','#A_HB_ML','#A_RD_SM','#A_LP_ML','#A_LP_L','#A_BK_M'];
   // 如果匹配的項目(總和)數量 == 0, 會持續執行迴圈
   if (preOrderProductList.filter(item => $(item).length != 0).length == 0) {
     return void setTimeout(preOrderPromptInitAll, 500);
@@ -335,6 +335,23 @@ function preOrderPromptInitAll() {
   preOrderProductList.forEach(item => {
     let $element = $('<span>', {
       text: '(預購)',
+      style: 'color: red; position: absolute;'
+    });
+    $(item).parent().find('.size-title').append($element);
+  });
+}
+
+// 缺貨中
+function outofstock() {
+  let $ = jQuery;
+  let outofstockList = ['#A_LP_M'];
+  // 如果匹配的項目(總和)數量 == 0, 會持續執行迴圈
+  if (outofstockList.filter(item => $(item).length != 0).length == 0) {
+    return void setTimeout(preOrderPromptInitAll, 500);
+  }
+  outofstockList.forEach(item => {
+    let $element = $('<span>', {
+      text: '(缺貨中)',
       style: 'color: red; position: absolute;'
     });
     $(item).parent().find('.size-title').append($element);
