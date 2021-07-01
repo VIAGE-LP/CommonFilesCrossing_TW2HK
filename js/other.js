@@ -337,7 +337,7 @@ function preOrderPromptInitAll() {
   //依賴62246
   //let preOrderProductList = ['#A_AIR_S','#A_AIR_SM','#A_AIR_M','#A_AIR_L','#A_AIR_LL'];
   //依賴62414
-  let preOrderProductList = ['#A_AIR_S','#A_AIR_SM','#A_AIR_M','#A_AIR_L'];
+  let preOrderProductList = ['#A_AIR_S','#A_AIR_SM','#A_AIR_M','#A_AIR_L','#A_HB_ML'];
   // 如果匹配的項目(總和)數量 == 0, 會持續執行迴圈
   if (preOrderProductList.filter(item => $(item).length != 0).length == 0) {
     return void setTimeout(preOrderPromptInitAll, 500);
